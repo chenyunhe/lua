@@ -1,0 +1,39 @@
+probability = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10, 10,5},
+ reward = {
+		{'props_p6',1},
+		{'props_p7',1},
+		{'props_p8',1},
+		{'props_p9',1},
+		{'props_p10',1},
+		{'props_p26',1},
+		{'props_p27',1},
+		{'props_p28',1},
+		{'props_p29',1},
+		{'props_p30',1},
+		{'props_p19',3},
+		{'props_p13',1},
+		{'props_p14',1},
+		{'props_p15',1},
+		{'props_p20',1},
+		{'props_p12',1},
+		{'props_p11',1},
+		{'troops_a10003',5},
+		{'troops_a10013',5},
+		{'troops_a10023',5},
+		{'troops_a10033',5},
+		{'props_p88',1},
+}
+-- 随机奖励 
+function self.getRewardByLucky(reward,probability)
+        local randSeed = {}
+        if type(probability) == 'table' then
+            for k,v in pairs(probability) do
+                for i=1,v do
+                    table.insert(randSeed,k)
+                end                
+            end
+        end
+
+       local k = rand(1,#randSeed)
+       return reward[[randSeed[k]]
+ end
