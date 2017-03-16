@@ -1,0 +1,9 @@
+
+Sublime Text3 安装Lua运行环境
+Sublime Text3  中没有package control的，需要自己安装，而sublime text 3已经支持命令行安装package control插件。
+复制代码：
+import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+
+打开sublime text 3，按ctrl+~或者菜单View > Show Console打开命令窗口，粘贴以上代码并回车，然后重启sublime。
+
+Ctrl+Shift+P 打开命令面板， 输入install Package,选中这个,
