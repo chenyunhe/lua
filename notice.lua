@@ -12,3 +12,18 @@ x = 10                -- 全局变量
    print(x)            --> 11  
  end  
  print(x)              --> 10 （取到的是全局的那一个）  
+
+--pairs和ipairs的区别
+localtbl = {"alpha", "beta", [3] = "uno", ["two"] = "dos"}  
+  
+for i,v in ipairs(tbl) do    --输出前三个  
+    print( tbl[i] )  
+end  
+
+
+for i,v in pairs(tbl) do    --全部输出  
+    print( tbl[i] )  
+end  
+
+--pairs可以遍历表中所有的key，并且除了迭代器本身以及遍历表本身还可以返回nil;
+--但是ipairs则不能返回nil,只能返回数字0，如果遇到nil则退出。它只能遍历到表中出现的第一个不是整数的key
