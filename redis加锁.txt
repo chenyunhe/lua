@@ -1,0 +1,54 @@
+-- 公共加锁
+function commonLock(lockFlag,lockKey)
+    local uid = tonumber(uid) or 0
+    local redis = getRedis()
+    local key = {
+        "z",
+        getZoneId(),
+        lockKey or "commonlock",
+        lockFlag,
+    }
+    key = table.concat(key,'.')
+    
+    local ret
+    
+    local i = 1
+    while i<5 do
+         ret = redis:getset(key,100)   
+         redis:expire(key,3)      
+         if ret==nil then
+             return true
+         else
+             local socket = require("socket.core")
+             local time = rand(20,60)/100
+             socket.select(nil,nil,time)
+             i = i + 1
+         end
+    end
+
+    return false
+end
+
+-- 公共解锁
+function commonUnlock(lockFlag,lockKey)
+    local uid = tonumber(uid) or 0
+    local redis = getRedis()
+    local key = {
+        "z",
+        getZoneId(),
+        lockKey or "commonlock",
+        lockFlag,
+    }
+    key = table.concat(key,'.')
+
+    local ret
+    ret = redis:del(key)
+    if ret==1 then
+        return true
+    end
+    return false
+end
+
+
+参数1：标识id 
+参数2：自定义名字  加锁和解锁保持一致
